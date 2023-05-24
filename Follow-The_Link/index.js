@@ -5,10 +5,23 @@ button1.addEventListener('click', redirectToOtherSite);
 button2.addEventListener('click', redirectToOtherSite);
 
 function redirectToOtherSite () {
-  const link = prompt('Enter a link');
-  if (!link.startsWith('http://') && !link.startsWith('https://')) {
-    link = 'http://' + link; 
-  }
+  const input = document.createElement('input');
+  input.type = 'text';
+  document.body.appendChild(input);
+  
+  const confirmButton = document.createElement('button');
+  confirmButton.innerText = 'OK';
+  document.body.appendChild(confirmButton);
 
-  window.location.href = link;
+  confirmButton.addEventListener('click', function() {
+    let link = input.value;
+    if (!link.startsWith('http://') && !link.startsWith('https://')) {
+      link = 'http://' + link;
+    }
+
+    window.location.href = link;
+    document.body.removeChild(input);
+    document.body.removeChild(confirmButton);
+  })
 }
+
